@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ArticleDetailsController">
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+   <children>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../images/The-Guardian-Logo.png" />
+         </image>
+      </ImageView>
+      <ScrollPane hbarPolicy="NEVER" prefHeight="520.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0">
+               <children>
+                  <VBox spacing="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Text fx:id="articleTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" wrappingWidth="880.0">
+                           <font>
+                              <Font name="Georgia Bold" size="20.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                           <children>
+                              <ImageView fx:id="articleImage" fitHeight="259.0" fitWidth="409.0" pickOnBounds="true" preserveRatio="true" />
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+                                 <children>
+                                    <Text fx:id="articleSubtitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Subtitle" wrappingWidth="420.0">
+                                       <font>
+                                          <Font name="Times New Roman" size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="articleCategory" fill="#005689" strokeType="OUTSIDE" strokeWidth="0.0" text="Category">
+                                       <font>
+                                          <Font name="Times New Roman Italic" size="13.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <Text fx:id="articleContent" strokeType="OUTSIDE" strokeWidth="0.0" text="Body/Abstract" textAlignment="JUSTIFY" wrappingWidth="880.0">
+                           <font>
+                              <Font name="Times New Roman" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </content>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </ScrollPane>
+      <AnchorPane prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#backAction" text="Back" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <padding>
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+               </padding>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#switchContentAction" text="Abstract/Body" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <padding>
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+               </padding>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

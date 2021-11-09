@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.NewsReaderController">
+   <children>
+      <ImageView fitHeight="32.0" fitWidth="153.0" layoutX="20.0" layoutY="14.0" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../images/The-Guardian-Logo.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="newsUser" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="100.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font name="Times New Roman Italic" size="14.0" />
+         </font>
+      </Text>
+      <HBox alignment="CENTER_LEFT" layoutX="30.0" layoutY="75.0" prefHeight="28.0" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="50.0">
+         <children>
+            <Button fx:id="newArticleButton" mnemonicParsing="false" onAction="#createArticleAction" text="New Article">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+               </padding>
+            </Button>
+            <Button fx:id="loadArticleButton" mnemonicParsing="false" onAction="#loadArticleAction" text="Load Article">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+               </padding>
+            </Button>
+            <Button fx:id="articleEdit" disable="true" mnemonicParsing="false" text="Edit Article">
+               <padding>
+                  <Insets bottom="5.0" left="27.0" right="28.0" top="5.0" />
+               </padding>
+            </Button>
+            <Button fx:id="articleDelete" disable="true" mnemonicParsing="false" text="Delete Article">
+               <padding>
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+               </padding>
+            </Button>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT" layoutX="735.0" layoutY="75.0" spacing="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+         <children>
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#openLogin" prefWidth="90.0" text="Login">
+               <padding>
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+               </padding>
+            </Button>
+            <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#exitApp" prefWidth="90.0" text="Exit">
+               <padding>
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+               </padding>
+            </Button>
+         </children></HBox>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
+         <children>
+            <VBox spacing="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane>
+                     <children>
+                        <Label prefHeight="24.0" text="Headlines" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font name="Georgia Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="34.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label text="Category" textFill="#005689">
+                                 <padding>
+                                    <Insets bottom="10.0" right="10.0" top="8.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Times New Roman" size="15.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="categoryFilter" onAction="#updateCategory" prefWidth="150.0" promptText="All" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+                  <ListView fx:id="headlineList" prefHeight="307.0" prefWidth="539.0" />
+               </children>
+            </VBox>
+            <VBox layoutY="64.0" prefHeight="408.0" prefWidth="311.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="64.0">
+               <children>
+                  <AnchorPane>
+                     <children>
+                        <ImageView fx:id="articleImage" fitWidth="390.0" layoutX="27.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+                  <Text fx:id="articleAbstract" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="JUSTIFY" wrappingWidth="390.0">
+                     <VBox.margin>
+                        <Insets bottom="30.0" top="30.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Times New Roman" size="14.0" />
+                     </font>
+                  </Text>
+                  <AnchorPane>
+                     <children>
+                        <Button fx:id="articleReadMore" alignment="CENTER" disable="true" mnemonicParsing="false" prefHeight="28.0" prefWidth="175.0" text="Read More">
+                           <padding>
+                              <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                           </padding>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+</AnchorPane>
