@@ -5,7 +5,7 @@ package application;
 
 /**
  * Contain all app scenes
- * @author AngelLucas
+ * @author ÁngelLucas
  *
  */
 public enum AppScenes {

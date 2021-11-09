@@ -41,6 +41,19 @@ public class Article {
 	//if needBeSaved is true the article was modified by a set method or by a property 
 	private boolean needBeSaved = false;
 	/**
+	 * Default constructor
+	 */
+	public Article()
+	{
+		abstractText =  new SimpleStringProperty(this, "abstractText","");
+		bodyText =  new SimpleStringProperty(this, "bodyText","");
+		title = new SimpleStringProperty(this, "title","");
+		subtitle = new SimpleStringProperty(this, "subtitle","");
+		isDeleted= new SimpleBooleanProperty (this,"isDeleted", false);
+		needBeSaved = false;
+	}
+	
+	/**
 	 * Copy constructor
 	 * @param org article to be copied
 	 */
@@ -61,6 +74,17 @@ public class Article {
 		this.category = category;
 	}
 	
+	public Article(String title, int idUser, String category, String abstractText) {
+		this( title, idUser, category);
+		this.abstractText.setValue(abstractText);
+	}
+	
+	public Article(String title, int idUser, String category,
+			String abstractText,String urlImage) {
+		this(title, idUser, category,abstractText);
+		this.setUrlImage(urlImage);
+	}
+	
 	public Article(String abstractText, String bodyText, String title,
 			Date publicationDate, int idUser, String urlImage, String category) {
 		this(title, idUser, category,abstractText,urlImage);
@@ -73,46 +97,100 @@ public class Article {
 		}
 	}
 	
-	public Article(String title, int idUser, String category, String abstractText) {
-		this( title, idUser, category);
-		this.abstractText.setValue(abstractText);
-	}
-	
-	public Article(String title, int idUser, String category,
-			String abstractText,String urlImage) {
-		this(title, idUser, category,abstractText);
-		this.setUrlImage(urlImage);
-	}
-	
 	/**
-	 * Default constructor
+	 * Provide access to abstractText property. 
+	 * Useful for binding operations
+	 * @return abstract property
 	 */
-	public Article()
-	{
-		abstractText =  new SimpleStringProperty(this, "abstractText","");
-		bodyText =  new SimpleStringProperty(this, "bodyText","");
-		title = new SimpleStringProperty(this, "title","");
-		subtitle = new SimpleStringProperty(this, "subtitle","");
-		isDeleted= new SimpleBooleanProperty (this,"isDeleted", false);
-		needBeSaved = false;
-	}
-	
-	/**
-	 * Return a string with the article title
-	 */
-	public String toString()
-	{
-		return this.title.getValue();
+	public StringProperty abstractTextProperty(){
+		return abstractText;
 	}
 	
 	//Getter and setters
+	
+	/**
+	 * Provide access to bodyText property. 
+	 * Useful for binding operations
+	 * @return body property
+	 */
+	public StringProperty bodyTextProperty(){
+		return bodyText;
+	}
+	
+	/**
+	 * @return the abstractText
+	 */
+	public String getAbstractText() {
+		return abstractText.getValue();
+	}
+	
+	
+	/**
+	 * @return the bodyText
+	 */
+	public String getBodyText() {
+		return bodyText.getValue();
+	}
+	
+	/**
+	 * @return the category
+	 */
+	public String getCategory() {
+		return category;
+	}
 	
 	public boolean getDeleted(){
 	 return isDeleted.getValue();	
 	}
 	
-	public void setDeleted(boolean deleted){
-	 isDeleted.setValue(deleted);	
+	/**
+	 * @return the idArticle
+	 */
+	public int getIdArticle() {
+		return idArticle;
+	}
+	
+	/**
+	 * @return the idImage
+	 */
+	public int getIdImage() {
+		return idImage;
+	}
+	
+	
+	/**
+	 * @return the idUser
+	 */
+	public int getIdUser() {
+		return idUser;
+	}
+	
+	/**
+	 * 
+	 * @return the image data
+	 */
+	public Image getImageData(){
+		return this.imageData;
+	}
+	
+	/**
+	 * @return the publicationDate
+	 */
+	public Date getPublicationDate() {
+		return publicationDate;
+	}
+	
+	/**
+	 * @return the subtitle
+	 */
+	public String getSubtitle() {
+		return subtitle.getValue();
+	}
+	/**
+	 * @return the title
+	 */
+	public String getTitle() {
+		return title.getValue();
 	}
 	
 	
@@ -130,10 +208,10 @@ public class Article {
 	}
 	
 	/**
-	 * @return the abstractText
+	 * @return the needBeSaved
 	 */
-	public String getAbstractText() {
-		return abstractText.getValue();
+	public boolean isNeedBeSaved() {
+		return needBeSaved;
 	}
 	
 	/**
@@ -144,23 +222,6 @@ public class Article {
 	}
 	
 	/**
-	 * Provide access to abstractText property. 
-	 * Useful for binding operations
-	 * @return abstract property
-	 */
-	public StringProperty abstractTextProperty(){
-		return abstractText;
-	}
-	
-	
-	/**
-	 * @return the bodyText
-	 */
-	public String getBodyText() {
-		return bodyText.getValue();
-	}
-	
-	/**
 	 * @param bodyText the bodyText to set
 	 */
 	public void setBodyText(String bodyText) {
@@ -168,104 +229,35 @@ public class Article {
 	}
 	
 	/**
-	 * Provide access to bodyText property. 
-	 * Useful for binding operations
-	 * @return body property
+	 * @param category the category to set
 	 */
-	public StringProperty bodyTextProperty(){
-		return bodyText;
+	public void setCategory(String category) {
+		this.category = category;
+		this.setNeedBeSaved(true);
+	}
+	
+	public void setDeleted(boolean deleted){
+	 isDeleted.setValue(deleted);	
+	}
+	/**
+	 * @param idArticle the idArticle to set
+	 */
+	public void setIdArticle(int idArticle) {
+		this.idArticle = idArticle;
 	}
 	
 	/**
-	 * @return the subtitle
+	 * @param idImage the idImage to set
 	 */
-	public String getSubtitle() {
-		return subtitle.getValue();
-	}
-	/**
-	 * @param subtitle the subtitle to set
-	 */
-	public void setSubtitle(String subtitle) {
-		this.subtitle.setValue(subtitle);
+	public void setIdImage(int idImage) {
+		this.idImage = idImage;
 	}
 	
-	
-	/**
-	 * Provide access to subtitle property. 
-	 * Useful for binding operations
-	 * @return title property
-	 */
-	public StringProperty subtitleProperty(){
-		return subtitle;
-	}
-	
-	/**
-	 * @return the title
-	 */
-	public String getTitle() {
-		return title.getValue();
-	}
-	
-	/**
-	 * @param title the title to set
-	 */
-	public void setTitle(String title) {
-		this.title.setValue(title);
-	}
-	
-	/**
-	 * Provide access to title property. 
-	 * Useful for binding operations
-	 * @return title property
-	 */
-	public StringProperty titleProperty(){
-		return title;
-	}
-	
-	/**
-	 * @return the publicationDate
-	 */
-	public Date getPublicationDate() {
-		return publicationDate;
-	}
-	
-	/**
-	 * @param publicationDate the publicationDate to set
-	 */
-	public void setPublicationDate(Date publicationDate) {
-		this.publicationDate = publicationDate;
-	}
-	
-	/**
-	 * @return the idUser
-	 */
-	public int getIdUser() {
-		return idUser;
-	}
 	/**
 	 * @param idUser the idUser to set
 	 */
 	public void setIdUser(int idUser) {
 		this.idUser = idUser;
-	}
-	
-	/**
-	 * @param urlImage the urlImage to set
-	 */
-	public void setUrlImage(String urlImage) {
-		if (urlImage!=null){
-			imageData = new Image(urlImage, false);	
-			this.setNeedBeSaved(true);
-		}
-		
-	}
-	
-	/**
-	 * 
-	 * @return the image data
-	 */
-	public Image getImageData(){
-		return this.imageData;
 	}
 	
 	/**
@@ -286,58 +278,66 @@ public class Article {
 		this.setNeedBeSaved(true);
 	}
 	
-	/**
-	 * @return the category
-	 */
-	public String getCategory() {
-		return category;
-	}
-	
-	/**
-	 * @param category the category to set
-	 */
-	public void setCategory(String category) {
-		this.category = category;
-		this.setNeedBeSaved(true);
-	}
-
-	/**
-	 * @return the idArticle
-	 */
-	public int getIdArticle() {
-		return idArticle;
-	}
-
-	/**
-	 * @param idArticle the idArticle to set
-	 */
-	public void setIdArticle(int idArticle) {
-		this.idArticle = idArticle;
-	}
-
-	/**
-	 * @return the idImage
-	 */
-	public int getIdImage() {
-		return idImage;
-	}
-
-	/**
-	 * @param idImage the idImage to set
-	 */
-	public void setIdImage(int idImage) {
-		this.idImage = idImage;
-	}
-	
-
-	/**
-	 * @return the needBeSaved
-	 */
-	public boolean isNeedBeSaved() {
-		return needBeSaved;
-	}	
-	
 	public void setNeedBeSaved(boolean need){
 		this.needBeSaved = need;
+	}
+	
+	/**
+	 * @param publicationDate the publicationDate to set
+	 */
+	public void setPublicationDate(Date publicationDate) {
+		this.publicationDate = publicationDate;
+	}
+
+	/**
+	 * @param subtitle the subtitle to set
+	 */
+	public void setSubtitle(String subtitle) {
+		this.subtitle.setValue(subtitle);
+	}
+
+	/**
+	 * @param title the title to set
+	 */
+	public void setTitle(String title) {
+		this.title.setValue(title);
+	}
+
+	/**
+	 * @param urlImage the urlImage to set
+	 */
+	public void setUrlImage(String urlImage) {
+		if (urlImage!=null){
+			imageData = new Image(urlImage, false);	
+			this.setNeedBeSaved(true);
+		}
+		
+	}
+
+	/**
+	 * Provide access to subtitle property. 
+	 * Useful for binding operations
+	 * @return title property
+	 */
+	public StringProperty subtitleProperty(){
+		return subtitle;
+	}
+	
+
+	/**
+	 * Provide access to title property. 
+	 * Useful for binding operations
+	 * @return title property
+	 */
+	public StringProperty titleProperty(){
+		return title;
+	}	
+	
+	/**
+	 * Return a string with the article title
+	 */
+	public String toString()
+	{
+		return this.title.getValue();
 	}
 }

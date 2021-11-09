@@ -72,7 +72,6 @@ class LoginModel {
 		else
 		{
 			try {
-				System.out.println(login +":"+ passwd);
 				connectionManager.login(login, passwd);
 				usr = new User (login, 
 						Integer.parseInt(connectionManager.getIdUser()));

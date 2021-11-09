@@ -4,7 +4,7 @@
 package application.news;
 
 /**
- * @author AngelLucas
+ * @author ÁngelLucas
  *
  */
 public class User {
