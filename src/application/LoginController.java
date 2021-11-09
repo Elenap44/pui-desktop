@@ -1,34 +1,5 @@
 package application;
 
-<<<<<<< HEAD
-
-import application.news.User;
-
-import serverConection.ConnectionManager;
-
-
-
-public class LoginController {
-//TODO Add all attribute and methods as needed 
-	private LoginModel loginModel = new LoginModel();
-	
-	private User loggedUsr = null;
-
-	public LoginController (){
-	
-		//Uncomment next sentence to use data from server instead dummy data
-		//loginModel.setDummyData(false);
-	}
-	
-	User getLoggedUsr() {
-		return loggedUsr;
-		
-	}
-		
-	void setConnectionManager (ConnectionManager connection) {
-		this.loginModel.setConnectionManager(connection);
-	}
-=======
 import application.news.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -112,5 +83,4 @@ public class LoginController {
 		Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
 		primaryStage.setScene(mainScene);
 	}
->>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4
 }

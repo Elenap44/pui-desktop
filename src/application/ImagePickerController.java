@@ -1,11 +1,7 @@
 package application;
 
 
-<<<<<<< HEAD
-//import com.jfoenix.controls.JFXTextField;
-=======
 
->>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4
 
 import java.io.File;
 
@@ -26,10 +22,6 @@ import javafx.stage.FileChooser.ExtensionFilter;
 public class ImagePickerController {
 
     @FXML // fx:id="idImageURL"
-<<<<<<< HEAD
-   // private JFXTextField idImageURL; // Value injected by FXMLLoader (Material desing version)
-=======
->>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4
     private TextField idImageURL; // Value injected by FXMLLoader
 
  
@@ -51,10 +43,6 @@ public class ImagePickerController {
     @FXML
     void onCancel(ActionEvent event) {
     	idImageURL.setText("");
-<<<<<<< HEAD
-    	image = null;
-=======
->>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4
     	Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		stage.close();
     }
@@ -87,11 +75,7 @@ public class ImagePickerController {
     void initialize() {
         assert idImageURL != null : "fx:id=\"idImageURL\" was not injected: check your FXML file 'ImagePicker.fxml'.";
         assert imgPreview != null : "fx:id=\"imgPreview\" was not injected: check your FXML file 'ImagePicker.fxml'.";
-<<<<<<< HEAD
-        Image image = new Image("file:./images/noImage.jpg", true);
-=======
         Image image = new Image("images/noImage.jpg", true);
->>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4
         imgPreview.setImage(image);
 
     }

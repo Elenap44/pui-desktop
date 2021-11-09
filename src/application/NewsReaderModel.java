@@ -147,11 +147,7 @@ class NewsReaderModel {
 						+ "<p><span style=\"color: #339966;\"><img src=\"http://www.eitdigital.eu/fileadmin/system2013/g/facebook_standard.png\" alt=\"EIT digital Logo\" width=\"200\" height=\"200\" /></span></p>"
 						+ "<p><span style=\"color: #339966;\">This text is green!!!!</span></p>"
 						+ "<p><span style=\"color: #993366;\">Now a link:<a href=\"https://masterschool.eitdigital.eu/programmes/hcid/\">ETI Digital hcid</a></span></p>" };
-<<<<<<< HEAD
-		String[] abstractImage = { "file:./images/abstract1.jpg", "file:./images/abstract2.jpg",
-=======
 		String[] abstractImage = { "images/abstract1.jpg", "images/abstract2.jpg",
->>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4
 				"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9zhpNZ-Rz0pv_dO1fQejnGFQlRaTRyMOmZHxSTXeJ-a-1P9x5",
 				null };
 		Categories[] category = { Categories.SPORTS, Categories.ECONOMY, Categories.INTERNATIONAL, Categories.ECONOMY };

@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
-=======
 Button {
 	-fx-background-color: #005689;
 	-fx-border-radius: 1;
 	-fx-border-color: #005689;
 	-fx-text-fill: white;
 }
->>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4

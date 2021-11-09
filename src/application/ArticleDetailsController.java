@@ -3,12 +3,6 @@
  */
 package application;
 
-<<<<<<< HEAD
-
-import application.news.Article;
-import application.news.User;
-
-=======
 import application.news.Article;
 import application.news.User;
 import javafx.event.ActionEvent;
@@ -19,38 +13,11 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
->>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4
 /**
  * @author AngelLucas
  *
  */
 public class ArticleDetailsController {
-<<<<<<< HEAD
-	//TODO add attributes and methods as needed
-	    private User usr;
-	    private Article article;
-
-	    
-
-		/**
-		 * @param usr the usr to set
-		 */
-		void setUsr(User usr) {
-			this.usr = usr;
-			if (usr == null) {
-				return; //Not logged user
-			}
-			//TODO Update UI information
-		}
-
-		/**
-		 * @param article the article to set
-		 */
-		void setArticle(Article article) {
-			this.article = article;
-			//TODO complete this method
-		}
-=======
 
 	private User usr;
 	private Article article;
@@ -129,5 +96,4 @@ public class ArticleDetailsController {
 		else
 			this.articleContent.setText(article.getAbstractText());
 	}
->>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4
 }
