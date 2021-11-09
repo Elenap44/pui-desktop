@@ -4,7 +4,11 @@
 package application.news;
 
 /**
+<<<<<<< HEAD
  * @author ÁngelLucas
+=======
+ * @author AngelLucas
+>>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4
  *
  */
 public class User {

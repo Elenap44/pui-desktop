@@ -63,7 +63,11 @@ public class JsonArticle {
 		// Converting image data into a String
 		String stringData = "";
 		if (image != null) {
+<<<<<<< HEAD
 			stringData = imagetToString(image);
+=======
+			stringData = imageToString(image);
+>>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4
 		}
 		buildJSon.add(keys.get("Image"), stringData);
 		int idArticle = article.getIdArticle();
@@ -181,7 +185,11 @@ public class JsonArticle {
 	 * @param image to be converted
 	 * @return string corresponding to the given image
 	 */
+<<<<<<< HEAD
 	private static String imagetToString(Image image) {// imageToString
+=======
+	private static String imageToString(Image image) {// imageToString
+>>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4
 		BufferedImage imageData = SwingFXUtils.fromFXImage(image, null);
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		try {

@@ -14,7 +14,11 @@ import javafx.scene.image.Image;
 /**
  *This class is used to represent an article when it is editing
  * This class is needed to develop NewsEditController
+<<<<<<< HEAD
  * @author ÁngelLucas
+=======
+ * @author AngelLucas
+>>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4
  *
  */
 class ArticleEditModel {
@@ -22,25 +26,52 @@ class ArticleEditModel {
 	private Article original;
 	//Reference to modified article
 	private Article edited;
+<<<<<<< HEAD
 
 	/**
 	 * It is a flag used to indicate that exists updates for the article
+=======
+	//User that made article modifications (not used in this version) 
+	private User user;
+	/**
+	 * Flag used to indicate that exist a modified article.
+>>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4
 	 * - False: unmodified
 	 * - True: modified
 	 */
 	private boolean bModified = false;
+<<<<<<< HEAD
+=======
+	ArticleEditModel (User usr){
+		this.user = usr;
+		original = new Article();
+		if (user!=null) {
+			original.setIdUser(user.getIdUser());
+		}
+			
+		edited = new Article (original);
+		addedChangeListener();
+	}
+	
+>>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4
 	ArticleEditModel (Article org){
 		original = org;
 		edited = new Article (original);
 		addedChangeListener();
 	}
 	
+<<<<<<< HEAD
 	ArticleEditModel (User usr){
 		original = new Article();
 		if (usr!=null) {
 			original.setIdUser(usr.getIdUser());
 		}
 			
+=======
+	ArticleEditModel (User usr, Article org){
+		this.user = usr;
+		original = org;
+>>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4
 		edited = new Article (original);
 		addedChangeListener();
 	}
@@ -48,6 +79,7 @@ class ArticleEditModel {
 	//Getters and setters
 	
 	/**
+<<<<<<< HEAD
 	 * This method provide access to edited article abstract property. So, this abstract can be modified through this property
 	 * @return a StringPorperty of edited article abstract.
 	 * The returned value is suitable for binding
@@ -77,6 +109,16 @@ class ArticleEditModel {
 	}
 	
 	/**
+=======
+	 * This method provide a copy of article body text
+	 * @return a copy of edited article body
+	 */
+	String getBodyText() {
+		return edited.getBodyText();
+	}
+
+	/**
+>>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4
 	 * This method provide access to edited article body property. So, this body can be modified through this property
 	 * @return a StringPorperty of edited article body.
 	 * The returned value is suitable for binding
@@ -86,6 +128,7 @@ class ArticleEditModel {
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * Consolidates changes permanently. Changes can't be undone 
 	 * Copy article data from the edited one to the original
 	 */
@@ -95,10 +138,28 @@ class ArticleEditModel {
 		copyArticleData(this.edited, this.original);
 		this.bModified = false;
 		this.original.setNeedBeSaved(true);
+=======
+	 * This method provide access to  edited article title property. So, this title can be modified through this property
+	 * @return a StringPorperty of edited article title.
+	 * The returned value is suitable for binding
+	 */
+	StringProperty titleProperty(){
+		return edited.titleProperty();
+	}
+	
+	/**
+	 * This method provide access to  edited article subtitle property. So, this subtitle can be modified through this property
+	 * @return a StringPorperty of edited article title.
+	 * The returned value is suitable for binding
+	 */
+	StringProperty subtitleProperty(){
+		return edited.subtitleProperty();
+>>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4
 	}
 	
 	
 	/**
+<<<<<<< HEAD
 	 * Copy article data from source to dest
 	 * @param source article to copy
 	 * @param dest copy from the original (source)
@@ -115,10 +176,20 @@ class ArticleEditModel {
 		dest.setDeleted(
 				source.getDeleted());
 		dest.setImageData(source.getImageData());
+=======
+	 * This method give access to the original article
+	 * @return the original article if only if has a valid title
+	 */
+	Article getArticleOriginal(){
+		return (this.original != null &&
+				this.original.getTitle() != null &&
+				! this.original.getTitle().equals(""))? this.original : null;
+>>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4
 	}
 	
 	
 	/**
+<<<<<<< HEAD
 	 * Discard all changes. Changes will be lost
 	 * Copy article data from the original one to the edited
 	 * 
@@ -128,20 +199,38 @@ class ArticleEditModel {
 			return; // Nothing to do
 		copyArticleData(this.original, this.edited);
 		this.bModified = false;
+=======
+	 * Change the associated image in the edited article
+	 * @param urlImage uri to an image. The image will be loaded
+	 */
+	void setUrlImage(String urlImage) {
+		edited.setUrlImage(urlImage);
+		this.bModified = true;
+>>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4
 	}
 	
 
 	/**
+<<<<<<< HEAD
 	 *  This method provide a copy of edited article abstract 
 	 * @return a copy of edited article abstract
 	 */
 	public String getAbstractText() {
 		return edited.getAbstractText();
+=======
+	 * Change the associated image in the edited article
+	 * @param image new image for the edited article
+	 */
+	void setImage(Image image) {
+		edited.setImageData(image);
+		this.bModified = true;
+>>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4
 	}
 	
 
 	
 	/**
+<<<<<<< HEAD
 	 * This method give access to the original article
 	 * @return the original article if only if has a valid title
 	 */
@@ -157,6 +246,21 @@ class ArticleEditModel {
 	 */
 	String getBodyText() {
 		return edited.getBodyText();
+=======
+	 * This method provide a copy of edited article title 
+	 * @return a copy the edited article title
+	 */
+	public String getTitle() {
+		return edited.getTitle();
+	}
+
+	/**
+	 * This method provide a copy of edited article subtitle 
+	 * @return a copy the edited article subtitle
+	 */
+	public String getSubtitle() {
+		return edited.getSubtitle();
+>>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4
 	}
 	
 	/**
@@ -176,6 +280,7 @@ class ArticleEditModel {
 	}*/
 	
 	/**
+<<<<<<< HEAD
 	 * This method give access to the edited article category
 	 * @return category from the edited article
 	 */
@@ -241,12 +346,87 @@ class ArticleEditModel {
 	void setUrlImage(String urlImage) {
 		edited.setUrlImage(urlImage);
 		this.bModified = true;
+=======
+	 * 
+	 * @return isDeleted from the edited article
+	 */
+	boolean isDeleted(){
+		return edited.isDeleted();
+	}
+	
+	/**
+	 * @return a Property of edited article isDeleted.
+	 * The returned value is suitable for binding
+	 */
+	Property<Boolean> isDeletedProperty() {
+		return edited.isDeletedProperty();
+	}
+	
+	/**
+	 * This method give access to the edited article category
+	 * @return category from the edited article
+	 */
+	public Categories getCategory() {
+		return Categories.valueOf(
+				edited.getCategory().toUpperCase());
+	}
+	
+	/**
+	 * Set category to the edited article
+	 * @param category new category for edited article
+	 */
+	public void setCategory(Categories category){
+		this.bModified = true;
+		edited.setCategory(category.toString());
+	}
+
+	/**
+	 *  This method provide a copy of edited article abstract 
+	 * @return a copy of edited article abstract
+	 */
+	public String getAbstractText() {
+		return edited.getAbstractText();
+	}
+
+	/**
+	 * This method provide access to edited article abstract property. So, this abstract can be modified through this property
+	 * @return a StringPorperty of edited article abstract.
+	 * The returned value is suitable for binding
+	 */
+	StringProperty abstractTextProperty() {
+			return edited.abstractTextProperty();
+	}
+	
+	/**
+	 * Make changes permanent. Changes can't be undone 
+	 * Copy article data from the edited one to the original
+	 */
+	public void commit(){
+		if (!this.bModified)
+			return; // Nothing to do
+		copyArticleData(this.edited, this.original);
+		this.bModified = false;
+		this.original.setNeedBeSaved(true);
+	}
+	
+	/**
+	 * Discard all changes. Changes will be lost
+	 * Copy article data from the original one to the edited
+	 * 
+	 */
+	public void discardChanges (){
+		if (!this.bModified)
+			return; // Nothing to do
+		copyArticleData(this.original, this.edited);
+		this.bModified = false;
+>>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4
 	}
 
 
 
 	
 	/**
+<<<<<<< HEAD
 	 * This method provide access to  edited article subtitle property. So, this subtitle can be modified through this property
 	 * @return a StringPorperty of edited article title.
 	 * The returned value is suitable for binding
@@ -262,5 +442,41 @@ class ArticleEditModel {
 	 */
 	StringProperty titleProperty(){
 		return edited.titleProperty();
+=======
+	 * Copy article data from source to dest
+	 * @param source article to copy
+	 * @param dest copy from the original (source)
+	 */
+	private void copyArticleData (Article source, Article dest){
+		dest.setAbstractText(
+				source.getAbstractText());
+		dest.setBodyText(source.getBodyText());
+		//dest.setPublish(source.isPublish());
+		dest.setTitle(source.getTitle());
+		dest.setSubtitle(source.getSubtitle());
+		dest.setCategory(
+				source.getCategory());
+		dest.setDeleted(
+				source.getDeleted());
+		dest.setImageData(source.getImageData());
+	}
+	
+	/**
+	 *  This method adds a change listener to all article
+	 *  properties in order to know whenever
+	 *  there is a change on edited article
+	 */
+	private void addedChangeListener(){
+ 	 this.edited.abstractTextProperty().addListener(
+				 (observable, oldvalue, newvalue) ->this.bModified =  true);
+ 	this.edited.bodyTextProperty().addListener(
+			 (observable, oldvalue, newvalue) ->this.bModified =  true);
+ 	this.edited.isDeletedProperty().addListener(
+			 (observable, oldvalue, newvalue) ->this.bModified =  true);
+ 	this.edited.titleProperty().addListener(
+			 (observable, oldvalue, newvalue) ->this.bModified =  true);
+ 	this.edited.subtitleProperty().addListener(
+			 (observable, oldvalue, newvalue) ->this.bModified =  true);
+>>>>>>> 6497dc4f2eb468ea989664c129d4e5a43853acb4
 	}
 }
