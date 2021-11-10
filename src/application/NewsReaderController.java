@@ -42,7 +42,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import serverConection.ConnectionManager;
 
 /**
- * @author ÁngelLucas
+ * @author AngelLucas
  *
  */
 public class NewsReaderController {

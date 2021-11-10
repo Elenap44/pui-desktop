@@ -55,7 +55,7 @@ public class Main extends Application {
 			ConnectionManager connection = new ConnectionManager(prop);
 			//Connecting as public (anonymous) for your group
 			connection.setAnonymousAPIKey("ANON01"/*Put your group API Key here*/);
-			//Login whitout login form:
+			//Login without login form:
 			//connection.login("DEV_TEAM_01", "123401"); //User: DEV_TEAM_01 and password "123401" 
 			//User user = new User ("DEV_TEAM_01", 
 			//Integer.parseInt(connection.getIdUser()));
