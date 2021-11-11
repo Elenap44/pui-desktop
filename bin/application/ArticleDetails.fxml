@@ -14,7 +14,7 @@
   <children>
       <AnchorPane layoutX="28.0" layoutY="369.0" prefHeight="26.0" prefWidth="516.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#back" stylesheets="@application.css" text="Back" />
+            <Button mnemonicParsing="false" onAction="#clickback" stylesheets="@application.css" text="Back" />
             <Button contentDisplay="RIGHT" layoutX="412.0" mnemonicParsing="false" onAction="#switchContent" prefHeight="25.0" prefWidth="103.0" stylesheets="@application.css" text="Abstract/Body" />
          </children>
       </AnchorPane>

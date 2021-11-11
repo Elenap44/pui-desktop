@@ -185,7 +185,7 @@ public class ArticleEditController {
 	void setConnectionMannager(ConnectionManager connection) {
 		this.connection = connection;
 		//TODO enable send and back button
-		this.backButton.setDisable(false);
+		//this.backButton.setDisable(false);
 	}
 
 	/**
@@ -286,18 +286,18 @@ public class ArticleEditController {
 		assert bodyHTML != null : "fx:id=\"bodyHTML\" was not injected";
 		assert categoryMenu != null : "fx:id=\"categoryMenu\" was not injected";
 	}
+	
 	@FXML
-	void back(ActionEvent e) {
-		this.editingArticle.discardChanges();
-		Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-		primaryStage.setScene(mainScene);
-	}
+	public void clickback(ActionEvent e) {
+		Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+		stage.close();
+		}
 
 	@FXML
 	void sendBack(ActionEvent e) {
 		if (this.send()) {
 			Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-			this.mainController.updateScene();
+			//this.mainController.updateScene();
 			primaryStage.setScene(mainScene);
 		}
 		return;

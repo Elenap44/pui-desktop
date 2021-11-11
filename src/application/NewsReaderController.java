@@ -23,6 +23,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +34,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Alert.AlertType;
@@ -59,40 +61,30 @@ import serverConection.exceptions.ServerCommunicationError;
  */
 public class NewsReaderController {
 
-	private NewsReaderModel newsReaderModel = new NewsReaderModel();
-	private User usr;
-
-	//TODO add attributes and methods as needed
-	
-	private Scene scene;
-
-	private ObservableList<Article> articles;
-	private FilteredList<Article> filteredArticles;
-	
-
 	@FXML
-	private Button readMoreButton;
+	private Label newsUser;
 	
 	@FXML
-	private Text newsUser;
-
-	@FXML
-	private ListView<String> headlineList;
-
-	@FXML
-	private ComboBox<Categories> categoryFilter;
-
+    private ListView<Article> headlineList;
+	
+	
 	@FXML
 	private ImageView articleImage;
-
+	
 	@FXML
 	private WebView articleAbstract;
-
+	
+	@FXML
+	private ComboBox<Categories> categoryFilter;
+	
 	@FXML
 	private Button login;
 
 	@FXML
 	private Button newArticle;
+	
+	@FXML
+	private Button loadArticle;
 	
 	@FXML
 	private Button edit;
@@ -103,19 +95,93 @@ public class NewsReaderController {
 	@FXML
 	private Button exit;
 
+	@FXML
+	private Button readMoreButton;
+	
+    private FilteredList<Article> filteredArticles;
+	private NewsReaderModel newsReaderModel = new NewsReaderModel();
+	private User usr;
+	
+	Article Article;
+	
+	private ConnectionManager connectionManager;
+
+	//TODO add attributes and methods as needed
+
+
 	public NewsReaderController() {
 		//TODO
 		//Uncomment next sentence to use data from server instead dummy data
 		newsReaderModel.setDummyData(false);
 		//Get text Label
+	}
+	
+	@FXML
+	void initialize() {
+		System.out.print("initialize function");
+
+		headlineList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Article>() {
+			 @Override
+				public void changed(ObservableValue<? extends Article> observable, Article oldValue, Article newValue) {
+					if (newValue != null){
+						Article = newValue;
+						articleAbstract.getEngine().loadContent(Article.getAbstractText());;
+						articleImage.setImage(Article.getImageData());
+						articleAbstract.setDisable(false);
+					}
+					else { //Nothing selected
+
+					}
+				}
+	 });
 		
 	}
 
+
+	 @FXML
+	    void changeCategory(ActionEvent event) {
+		//TODO:
+	    	//Get the text associated to key pressed
+	    	
+	    	//If key code corresponds to a character or digit then add to text filter
+	    	
+	    	
+	    	//Update the filter. If filtetText is empty, 
+	    	//all contacts must be shown in other case,
+	    	//only contacts that start with filterText must be shown
+	      //END TODO
+	    	
+	    	String filterText = this.categoryFilter.getValue().toString();
+
+	    	if(filterText == "All") {
+		    	filteredArticles.setPredicate(article -> true);
+	    	}else {
+		    	filteredArticles.setPredicate(article -> article.getCategory().equals(filterText));
+	    	}
+	    	
+	    	this.headlineList.setItems(filteredArticles);
+	    }
+	
+
 	private void getData() {
 		//TODO retrieve data and update UI
-		//The method newsReaderModel.retrieveData() can be used to retrieve data  
-		newsReaderModel.retrieveData();
-		this.loadArticles();
+		 newsReaderModel.retrieveData();
+		 categoryFilter.getItems().addAll(newsReaderModel.getCategories());
+		 categoryFilter.getSelectionModel().selectFirst();
+		 
+    	filteredArticles = new FilteredList<>(newsReaderModel.getArticles(), article -> true);
+    	
+    	this.headlineList.setItems(filteredArticles);
+    	
+		headlineList.getSelectionModel().selectFirst();
+    	
+    	if(this.usr == null) {
+    		this.delete.setDisable(true);
+    		this.edit.setDisable(true);
+    	}else {
+    		this.delete.setDisable(false);
+    		this.edit.setDisable(false);
+    	}
 	}
 
 	/**
@@ -126,7 +192,8 @@ public class NewsReaderController {
 	}
 
 	void setConnectionManager (ConnectionManager connection){
-		this.newsReaderModel.setDummyData(false); //System is connected so dummy data are not needed
+		//this.newsReaderModel.setDummyData(false); //System is connected so dummy data are not needed
+		this.connectionManager = connection;
 		this.newsReaderModel.setConnectionManager(connection);
 		this.getData();
 	}
@@ -140,231 +207,122 @@ public class NewsReaderController {
 		//Reload articles
 		this.getData();
 		//TODO Update UI
-		this.updateScene();
-		
 		newsUser.setText(this.usr.getLogin());
 	}
 	
-	void setScene(Scene scene) {
-		this.scene = scene;
-	}
-
-	void updateScene() {
-		this.clearScene();
-		this.getData();
+	public void ClickEdit(Event e) {
+		NewScene(AppScenes.EDITOR, this.Article, e);
 	}
 	
-	private void loadArticles() {
-
-		if (usr != null) {
-			login.setDisable(true);
-		} else {
-			login.setDisable(false);
-		}
-
-		this.categoryFilter.setItems(newsReaderModel.getCategories());
-
-		articles = newsReaderModel.getArticles();
-		ObservableList<String> headlines = FXCollections.observableArrayList();
-		for (int i = 0; i < articles.size(); i++) {
-			headlines.add(articles.get(i).getTitle());
-		}
-		this.headlineList.setItems(headlines);
-
-		this.headlineList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				for (int i = 0; i < articles.size(); i++) {
-					if (articles.get(i).getTitle() == newValue) {
-						Article article = articles.get(i);
-						articleAbstract.getEngine().loadContent(article.getAbstractText());
-						articleImage.setImage(article.getImageData());
-
-						if (usr != null && article.getIdUser() == usr.getIdUser()) {
-							delete.setDisable(false);
-							edit.setDisable(false);
-						} else {
-							delete.setDisable(true);
-							edit.setDisable(true);
-						}
-
-						edit.setOnAction(new EventHandler<ActionEvent>() {
-							@Override
-							public void handle(ActionEvent e) {
-								try {
-									Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-									FXMLLoader loader = new FXMLLoader(
-											getClass().getResource(AppScenes.EDITOR.getFxmlFile()));
-									Scene articleScene = new Scene(loader.load());
-									ArticleEditController controller = loader.<ArticleEditController>getController();
-									controller.setArticle(article);
-									controller.setConnectionMannager(newsReaderModel.getConnectionManager());
-									controller.setUsr(usr);
-									controller.setMainScene(scene);
-									controller.setMainController(NewsReaderController.this);
-									primaryStage.setScene(articleScene);
-								} catch (IOException e1) {
-									e1.printStackTrace();
-								}
-							}
-						});
-
-						delete.setOnAction(new EventHandler<ActionEvent>() {
-							@Override
-							public void handle(ActionEvent e) {
-								try {
-									newsReaderModel.getConnectionManager().deleteArticle(article.getIdArticle());
-									updateScene();
-								} catch (ServerCommunicationError e2) {
-									e2.printStackTrace();
-								}
-							}
-						});
-
-						readMoreButton.setDisable(false);
-						readMoreButton.setOnAction(new EventHandler<ActionEvent>() {
-							@Override
-							public void handle(ActionEvent e) {
-								try {
-									Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-									FXMLLoader loader = new FXMLLoader(
-											getClass().getResource(AppScenes.NEWS_DETAILS.getFxmlFile()));
-									Scene articleScene = new Scene(loader.load());
-									ArticleDetailsController controller = loader
-											.<ArticleDetailsController>getController();
-									controller.setArticle(article);
-									controller.setMainScene(scene);
-									primaryStage.setScene(articleScene);
-								} catch (IOException e1) {
-									e1.printStackTrace();
-								}
-							}
-						});
-					}
-				}
-			}
-		});
-	}
-
-	private void clearScene() {
-		this.headlineList.getItems().clear();
-		this.categoryFilter.getSelectionModel().select(0);
-		this.articleAbstract.getEngine().loadContent("");
-		this.articleImage.setImage(null);
-		this.delete.setDisable(true);
-		this.edit.setDisable(true);
-		this.readMoreButton.setDisable(true);
+	public void ClickNew(Event e) {
+		NewScene(AppScenes.EDITOR, null, e);
 	}
 	
-	@FXML
-	void initialize() {
-		assert headlineList != null : "fx:id=\"headlineList\" was not injected: check your FXML file 'NewsReader.fxml'.";
-		assert categoryFilter != null : "fx:id=\"categoryFilter\" was not injected: check your FXML file 'NewsReader.fxml'.";
-		assert articleImage != null : "fx:id=\"articleImage\" was not injected: check your FXML file 'NewsReader.fxml'.";
-		assert articleAbstract != null : "fx:id=\"articleAbstract\" was not injected: check your FXML file 'NewsReader.fxml'.";
-		assert readMoreButton != null : "fx:id=\"readMoreButton\" was not injected: check your FXML file 'NewsReader.fxml'.";
-		assert edit != null : "fx:id=\"edit\" was not injected: check your FXML file 'NewsReader.fxml'.";
-		assert delete != null : "fx:id=\"delete\" was not injected: check your FXML file 'NewsReader.fxml'.";
-		assert login != null : "fx:id=\"login\" was not injected: check your FXML file 'NewsReader.fxml'.";
-		assert exit != null : "fx:id=\"exit\" was not injected: check your FXML file 'NewsReader.fxml'.";
+	public void ClickObserve(Event e) {
+		NewScene(AppScenes.NEWS_DETAILS, this.Article, e);
 	}
-
+	
+	public void ClickLogin(Event e) {
+		NewScene(AppScenes.LOGIN, null,e );
+	}
+	
+	public void ClickDelete() {
+		newsReaderModel.deleteArticle(this.Article);
+		getData();
+		
+	}
+	
+	
 	@FXML
-	void updateCategory(ActionEvent event) {
-		ObservableList<String> filteredHeadlines = FXCollections.observableArrayList();
-		filteredArticles = new FilteredList<>(articles, article -> true);
-		Object currentCategory = categoryFilter.getSelectionModel().selectedItemProperty().getValue();
-		String strCategory = currentCategory.toString();
+	public void LoadArticleFromFile(Event e) {
+		FileChooser chooser =  new FileChooser();
+		chooser.setTitle("���ļ�");
+		
+		chooser.getExtensionFilters().addAll(
 
-		if (strCategory.equals("All")) {
-			for (int i = 0; i < articles.size(); i++) {
-				filteredHeadlines.add(articles.get(i).getTitle());
-			}
-		} else {
-			filteredArticles.setPredicate(article -> article.getCategory().toString().equals(strCategory));
-			for (int i = 0; i < filteredArticles.size(); i++) {
-				filteredHeadlines.add(filteredArticles.get(i).getTitle());
-			}
+		new FileChooser.ExtensionFilter("All news", "*.news"));
+		File file = chooser.showOpenDialog(new Stage());
+		if (file == null) {
+			return;
 		}
-		this.headlineList.setItems(filteredHeadlines);
+		
+		try {
+			Article article = JsonArticle.jsonToArticle(JsonArticle.readFile(file.getAbsolutePath()));
+			NewScene(AppScenes.EDITOR, article, e);
+		} catch (ErrorMalFormedArticle ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
 	}
+	
 
 	@FXML
-	void exitApp(ActionEvent e) {
+	void ClickExit(ActionEvent e) {
 		System.exit(0);
 	}
+	
 
-	@FXML
-	void openLogin(ActionEvent e) {
+	
+	public void NewScene(AppScenes scene, Article article, Event event) {
+		
 		try {
-			Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(AppScenes.LOGIN.getFxmlFile()));
-			Scene loginScene = new Scene(loader.load());
-			LoginController controller = loader.<LoginController>getController();
-			controller.setConnectionManager(newsReaderModel.getConnectionManager());
-			controller.setMainScene(scene);
-			controller.setMainController(this);
-			primaryStage.setScene(loginScene);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-	}
-
-	@FXML
-	void createArticleAction(ActionEvent e) {
-		try {
-			Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(AppScenes.EDITOR.getFxmlFile()));
-			Scene articleScene = new Scene(loader.load());
-			ArticleEditController controller = loader.<ArticleEditController>getController();
-			controller.setArticle(null);
-			controller.setMainScene(scene);
-			controller.setMainController(NewsReaderController.this);
-
-			if (this.usr != null) {
-				controller.setUsr(this.usr);
-				controller.setConnectionMannager(newsReaderModel.getConnectionManager());
-			}
-
-			primaryStage.setScene(articleScene);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-	}
-
-	@FXML
-	void loadArticleAction(ActionEvent e) throws ErrorMalFormedArticle {
-		try {
-			Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-
-			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Choose Article");
-			fileChooser.setInitialDirectory(new File("saveNews//"));
-			fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("NEWS", "*.news"));
-			File articleFile = fileChooser.showOpenDialog(primaryStage);
-			if (articleFile != null) {
-				JsonObject articleJson = (JsonObject) JsonArticle.readFile(articleFile.toString());
-				Article article = JsonArticle.jsonToArticle(articleJson);
-
-				FXMLLoader loader = new FXMLLoader(getClass().getResource(AppScenes.EDITOR.getFxmlFile()));
-				Scene articleScene = new Scene(loader.load());
-				ArticleEditController controller = loader.<ArticleEditController>getController();
-				controller.setArticle(article);
-
-				if (this.usr != null) {
-					controller.setUsr(this.usr);
-					controller.setConnectionMannager(newsReaderModel.getConnectionManager());
+			
+			FXMLLoader loader = new FXMLLoader (getClass().getResource(
+					scene.getFxmlFile()));
+			Pane root = loader.load();
+			Stage stage = new Stage();
+			stage.initModality(Modality.WINDOW_MODAL);
+            stage.setTitle(scene.toString());
+            stage.setScene(new Scene(root));
+            
+            if (scene == AppScenes.EDITOR) {
+            	ArticleEditController controller = loader.<ArticleEditController>getController();
+            	
+            	if (article != null) {
+            		controller.setArticle(article);
+            	
 				}
+            	controller.setConnectionMannager(this.connectionManager);
+            	controller.setUsr(usr);
+            	stage.showAndWait();
+            	
+            	getData();
+            	return;
+            	
+			} else if(scene == AppScenes.LOGIN) {
+            	
+            	LoginController controller = loader.<LoginController>getController();
+    			controller.setConnectionManager(this.connectionManager);
+    			
+    			stage.showAndWait();
+    			
+            	User loggedInUsr = controller.getLoggedUsr();
+            	
+            	if (loggedInUsr != null) {
+            		setUsr(loggedInUsr);
+            	}
+            	return;
+            	
+			 } else if(scene == AppScenes.NEWS_DETAILS) {
+				 ArticleDetailsController controller = loader.<ArticleDetailsController>getController();
+	            	
+	             if (article != null) {
+	            	controller.setArticle(article);
+				 }
+	            	
+	             controller.setUsr(usr);
+	             stage.show();
+	             return;
+            }else {
+            	 stage.show();
+            	 NewsReaderController controller = loader.<NewsReaderController>getController();
+            	
+            }
 
-				controller.setMainScene(scene);
-				controller.setMainController(NewsReaderController.this);
-
-				primaryStage.setScene(articleScene);
-			}
-
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		} catch(IOException e){
+			e.printStackTrace();
 		}
+		
 	}
 
 

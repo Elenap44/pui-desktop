@@ -19,12 +19,12 @@
    <children>
       <AnchorPane layoutX="428.0" prefHeight="153.0" prefWidth="100.0">
          <children>
-            <Button fx:id="loadArticle" layoutY="1.0" mnemonicParsing="false" onAction="#loadArticleAction" text="Load Article from File" />
-            <Button fx:id="exit" layoutY="126.0" mnemonicParsing="false" onAction="#exitApp" text="Exit" />
-            <Button fx:id="delete" layoutY="101.0" mnemonicParsing="false" text="Delete" />
-            <Button fx:id="newArticle" layoutY="51.0" mnemonicParsing="false" onAction="#createArticleAction" text="New" />
-            <Button fx:id="login" layoutY="26.0" mnemonicParsing="false" onAction="#openLogin" text="Login" />
-            <Button fx:id="edit" layoutY="76.0" mnemonicParsing="false" text="Edit" />
+            <Button fx:id="loadArticle" layoutY="1.0" mnemonicParsing="false" onAction="#LoadArticleFromFile" text="Load Article from File" />
+            <Button fx:id="exit" layoutY="126.0" mnemonicParsing="false" onAction="#ClickExit" text="Exit" />
+            <Button fx:id="delete" layoutY="101.0" mnemonicParsing="false" onAction="#ClickDelete" text="Delete" />
+            <Button fx:id="newArticle" layoutY="51.0" mnemonicParsing="false" onAction="#ClickNew" text="New" />
+            <Button fx:id="login" layoutY="26.0" mnemonicParsing="false"  onAction="#ClickLogin" text="Login" />
+            <Button fx:id="edit" layoutY="76.0" mnemonicParsing="false" onAction="#ClickEdit" text="Edit" />
          </children>
       </AnchorPane>
       <ImageView fx:id="articleImage" fitHeight="99.0" fitWidth="170.0" layoutX="237.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" />
@@ -35,12 +35,12 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <ComboBox fx:id="categoryFilter" layoutX="14.0" layoutY="319.0" onAction="#updateCategory" prefWidth="150.0" promptText="Categories" />
-      <Button fx:id="readMoreButton" layoutX="492.0" layoutY="319.0" mnemonicParsing="false" text="Read More" />
+      <ComboBox fx:id="categoryFilter" layoutX="14.0" layoutY="319.0" onAction="#changeCategory" prefWidth="150.0" promptText="Categories" />
+      <Button fx:id="readMoreButton" layoutX="492.0" layoutY="319.0" onAction="#ClickObserve" mnemonicParsing="false" text="Read More" />
       <HBox prefHeight="17.0" prefWidth="239.0">
          <children>
             <Label text="News Online for ID User: " />
-            <Text fx:id="newsUser" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Label fx:id="newsUser" />
          </children>
       </HBox>
    </children>

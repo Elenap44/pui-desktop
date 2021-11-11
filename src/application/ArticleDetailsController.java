@@ -7,6 +7,7 @@ package application;
 import application.news.Article;
 import application.news.User;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -93,10 +94,10 @@ public class ArticleDetailsController {
 			}
 		
 		@FXML
-		void back(ActionEvent e) {
-			Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-			primaryStage.setScene(mainScene);
-		}
+		public void clickback (ActionEvent e) {
+			Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+			stage.close();
+    		}
 		
 		@FXML
 		void switchContent() {

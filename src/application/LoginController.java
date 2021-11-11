@@ -62,7 +62,7 @@ public class LoginController {
 	}
 
 	@FXML
-	void login(ActionEvent e) {
+	void loginAction(ActionEvent e) {
 		username = userName.getText().toString();
 		password = psswrd.getText().toString();
 
@@ -73,7 +73,6 @@ public class LoginController {
 		} else {
 			loggedUsr = usr;
 			Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-			mainController.setUsr(loggedUsr);
 			primaryStage.setScene(mainScene);
 		}
 	}
@@ -81,6 +80,6 @@ public class LoginController {
 	@FXML
 	void cancel(ActionEvent e) {
 		Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-		primaryStage.setScene(mainScene);
+		primaryStage.close();
 	}
 }
