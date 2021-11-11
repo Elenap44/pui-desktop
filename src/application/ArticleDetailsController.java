@@ -10,13 +10,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
- * @author Ã�ngelLucas
+ * @author AngelLucas
  *
  */
 public class ArticleDetailsController {
@@ -26,18 +28,30 @@ public class ArticleDetailsController {
 	    private Scene mainScene;
 	    
 	    @FXML
-	    private Text aTitle;
+		private Label userName;
 	    @FXML
-	    private Text aSubtitle;
+	    private Label title;
 	    @FXML
-	    private Text aCategory;
+	    private Label subtitle;
 	    @FXML
-	    private ImageView aImage;
+	    private Label category;
 	    @FXML
-	    private Text aContent;
+	    private ImageView imageView;
+	    @FXML
+	    private TextArea body;
+	    @FXML
+	    private TextArea aAbstract;
 
+	    @FXML
+		void initialize() {
+			assert title != null : "fx:id=\"articleTitle\" was not injected";
+			assert subtitle != null : "fx:id=\"articleSubtitle\" was not injected";
+			assert category != null : "fx:id=\"articleCategory\" was not injected";
+			assert imageView != null : "fx:id=\"articleImage\" was not injected";
+			assert aAbstract != null : "fx:id=\"aAbstract\" was not injected.";
+			assert body != null : "fx:id=\"body\" was not injected.";
+		}
 	    
-
 		/**
 		 * @param usr the usr to set
 		 */
@@ -55,39 +69,44 @@ public class ArticleDetailsController {
 		void setMainScene(Scene scene1) {
 			this.mainScene = scene1;
 		}
+		
 		void setArticle(Article article) {
 			this.article = article;
 			this.setData();
 			//TODO complete this method
 		}
+		
 		private void setData() {
-			this.aTitle.setText(article.getTitle());
-			this.aSubtitle.setText(article.getSubtitle());
-			this.aCategory.setText(article.getCategory());
-			this.aImage.setImage(article.getImageData());
+			this.title.setText(article.getTitle());
+			this.subtitle.setText(article.getSubtitle());
+			this.category.setText(article.getCategory());
+			if (article.getImageData() != null) {
+				this.imageView.setImage(article.getImageData());
+			}
 			String bodyText = article.getBodyText();
 			String noHTMLString = bodyText.replaceAll("\\<.*?\\>", "");
 			bodyText = noHTMLString.replaceAll("\\n", "");
-			this.aContent.setText(bodyText);
+			this.aAbstract.setText(article.getAbstractText());
+            this.body.setText(article.getBodyText());
+            aAbstract.setEditable(false);
+            body.setEditable(false);
 			}
+		
 		@FXML
-		void initialize() {
-			assert aTitle != null : "fx:id=\"articleTitle\" was not injected";
-			assert aSubtitle != null : "fx:id=\"articleSubtitle\" was not injected";
-			assert aCategory != null : "fx:id=\"articleCategory\" was not injected";
-			assert aImage != null : "fx:id=\"articleImage\" was not injected";
-			assert aContent != null : "fx:id=\"articleContent\" was not injected.";
-		}
-		@FXML
-		void backAction(ActionEvent e) {
+		void back(ActionEvent e) {
 			Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
 			primaryStage.setScene(mainScene);
 		}
 		@FXML
-		void switchContentAction(ActionEvent e) {
-			if (this.aContent.getText().equals(this.article.getAbstractText()))
-				this.aContent.setText(article.getBodyText());
-			else
-				this.aContent.setText(article.getAbstractText());
-		}
+		void switchContent(ActionEvent e) {
+			if (body.isVisible()) {
+		    	aAbstract.setVisible(true);
+		    	body.setVisible(false);
+		    	return;
+			}
+			if (aAbstract.isVisible()){
+			   	body.setVisible(true);
+			   	aAbstract.setVisible(false);
+		        return;
+			}
 }

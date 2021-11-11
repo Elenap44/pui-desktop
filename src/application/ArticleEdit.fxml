@@ -1,8 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.HTMLEditor?>
 
-<AnchorPane prefHeight="420.0" prefWidth="570.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ArticleEditController">
-
-</AnchorPane>
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Label layoutX="21.0" layoutY="14.0" text="Article edit" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="21.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Stuff/designflows2021.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="259.0" layoutY="40.0" text="Title" />
+            <Label layoutX="250.0" layoutY="87.0" text="Subtitle" />
+            <TextField layoutX="307.0" layoutY="36.0" prefHeight="26.0" prefWidth="300.0" />
+            <TextField layoutX="307.0" layoutY="82.0" prefHeight="26.0" prefWidth="300.0" />
+            <Label layoutX="245.0" layoutY="131.0" text="Category" />
+            <ComboBox layoutX="307.0" layoutY="127.0" prefHeight="26.0" prefWidth="30.0" />
+            <HTMLEditor htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="17.0" layoutY="174.0" prefHeight="178.0" prefWidth="598.0" />
+            <Button layoutX="14.0" layoutY="361.0" mnemonicParsing="false" text="Back" />
+            <Button layoutX="66.0" layoutY="362.0" mnemonicParsing="false" text="Send &amp; back" />
+            <Button layoutX="160.0" layoutY="363.0" mnemonicParsing="false" text="Save to file" />
+            <Button layoutX="520.0" layoutY="363.0" mnemonicParsing="false" text="Abstract/Body" />
+            <Button layoutX="433.0" layoutY="363.0" mnemonicParsing="false" text="Text/Html" />
+         </children>
+    </AnchorPane>
+  </children>
+</VBox>
