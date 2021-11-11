@@ -76,7 +76,6 @@ public class NewsReaderController {
 	@FXML
 	private Text newsUser;
 
-
 	@FXML
 	private ListView<String> headlineList;
 
@@ -87,25 +86,22 @@ public class NewsReaderController {
 	private ImageView articleImage;
 
 	@FXML
-	private TextArea articleAbstract;
+	private WebView articleAbstract;
 
 	@FXML
-	private MenuItem loadArticle;
+	private Button login;
 
 	@FXML
-	private MenuItem login;
-
-	@FXML
-	private MenuItem newArticle;
+	private Button newArticle;
 	
 	@FXML
-	private MenuItem edit;
+	private Button edit;
 	
 	@FXML
-	private MenuItem delete;
+	private Button delete;
 
 	@FXML
-	private MenuItem exit;
+	private Button exit;
 
 	public NewsReaderController() {
 		//TODO
@@ -114,8 +110,6 @@ public class NewsReaderController {
 		//Get text Label
 		
 	}
-
-		
 
 	private void getData() {
 		//TODO retrieve data and update UI
@@ -147,6 +141,8 @@ public class NewsReaderController {
 		this.getData();
 		//TODO Update UI
 		this.updateScene();
+		
+		newsUser.setText(this.usr.getLogin());
 	}
 	
 	void setScene(Scene scene) {
@@ -161,10 +157,8 @@ public class NewsReaderController {
 	private void loadArticles() {
 
 		if (usr != null) {
-			newsUser.setText("User " + usr.getIdUser());
 			login.setDisable(true);
 		} else {
-			newsUser.setText("");
 			login.setDisable(false);
 		}
 
@@ -183,7 +177,7 @@ public class NewsReaderController {
 				for (int i = 0; i < articles.size(); i++) {
 					if (articles.get(i).getTitle() == newValue) {
 						Article article = articles.get(i);
-						articleAbstract.setText(article.getAbstractText());
+						articleAbstract.getEngine().loadContent(article.getAbstractText());
 						articleImage.setImage(article.getImageData());
 
 						if (usr != null && article.getIdUser() == usr.getIdUser()) {
@@ -255,7 +249,7 @@ public class NewsReaderController {
 	private void clearScene() {
 		this.headlineList.getItems().clear();
 		this.categoryFilter.getSelectionModel().select(0);
-		this.articleAbstract.setText("");
+		this.articleAbstract.getEngine().loadContent("");
 		this.articleImage.setImage(null);
 		this.delete.setDisable(true);
 		this.edit.setDisable(true);
