@@ -4,10 +4,12 @@
 package application;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
+import javax.json.JsonObject;
 
 import application.news.Article;
 import application.news.Categories;
@@ -17,22 +19,30 @@ import application.utils.exceptions.ErrorMalFormedArticle;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -41,6 +51,7 @@ import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import javafx.stage.FileChooser.ExtensionFilter;
 import serverConection.ConnectionManager;
+import serverConection.exceptions.ServerCommunicationError;
 
 /**
  * @author AngelLucas
@@ -58,14 +69,13 @@ public class NewsReaderController {
 	private ObservableList<Article> articles;
 	private FilteredList<Article> filteredArticles;
 	
-	/*@FXML
+
+	@FXML
+	private Button readMoreButton;
+	
+	@FXML
 	private Text newsUser;
 
-	@FXML
-	private Button loginButton;
-
-	@FXML
-	private Button logoutButton;
 
 	@FXML
 	private ListView<String> headlineList;
@@ -77,16 +87,25 @@ public class NewsReaderController {
 	private ImageView articleImage;
 
 	@FXML
-	private Text articleAbstract;
+	private TextArea articleAbstract;
 
 	@FXML
-	private Button articleReadMore;
+	private MenuItem loadArticle;
 
 	@FXML
-	private Button articleEdit;
+	private MenuItem login;
 
 	@FXML
-	private Button articleDelete;*/
+	private MenuItem newArticle;
+	
+	@FXML
+	private MenuItem edit;
+	
+	@FXML
+	private MenuItem delete;
+
+	@FXML
+	private MenuItem exit;
 
 	public NewsReaderController() {
 		//TODO
@@ -143,10 +162,10 @@ public class NewsReaderController {
 
 		if (usr != null) {
 			newsUser.setText("User " + usr.getIdUser());
-			loginButton.setDisable(true);
+			login.setDisable(true);
 		} else {
 			newsUser.setText("");
-			loginButton.setDisable(false);
+			login.setDisable(false);
 		}
 
 		this.categoryFilter.setItems(newsReaderModel.getCategories());
@@ -168,14 +187,14 @@ public class NewsReaderController {
 						articleImage.setImage(article.getImageData());
 
 						if (usr != null && article.getIdUser() == usr.getIdUser()) {
-							articleDelete.setDisable(false);
-							articleEdit.setDisable(false);
+							delete.setDisable(false);
+							edit.setDisable(false);
 						} else {
-							articleDelete.setDisable(true);
-							articleEdit.setDisable(true);
+							delete.setDisable(true);
+							edit.setDisable(true);
 						}
 
-						articleEdit.setOnAction(new EventHandler<ActionEvent>() {
+						edit.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent e) {
 								try {
@@ -196,7 +215,7 @@ public class NewsReaderController {
 							}
 						});
 
-						articleDelete.setOnAction(new EventHandler<ActionEvent>() {
+						delete.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent e) {
 								try {
@@ -208,8 +227,8 @@ public class NewsReaderController {
 							}
 						});
 
-						articleReadMore.setDisable(false);
-						articleReadMore.setOnAction(new EventHandler<ActionEvent>() {
+						readMoreButton.setDisable(false);
+						readMoreButton.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent e) {
 								try {
@@ -238,22 +257,22 @@ public class NewsReaderController {
 		this.categoryFilter.getSelectionModel().select(0);
 		this.articleAbstract.setText("");
 		this.articleImage.setImage(null);
-		this.articleDelete.setDisable(true);
-		this.articleEdit.setDisable(true);
-		this.articleReadMore.setDisable(true);
+		this.delete.setDisable(true);
+		this.edit.setDisable(true);
+		this.readMoreButton.setDisable(true);
 	}
 	
-	/*@FXML
+	@FXML
 	void initialize() {
 		assert headlineList != null : "fx:id=\"headlineList\" was not injected: check your FXML file 'NewsReader.fxml'.";
-		assert categoryFilter != null : "fx:id=\"categoryMenu\" was not injected: check your FXML file 'NewsReader.fxml'.";
+		assert categoryFilter != null : "fx:id=\"categoryFilter\" was not injected: check your FXML file 'NewsReader.fxml'.";
 		assert articleImage != null : "fx:id=\"articleImage\" was not injected: check your FXML file 'NewsReader.fxml'.";
 		assert articleAbstract != null : "fx:id=\"articleAbstract\" was not injected: check your FXML file 'NewsReader.fxml'.";
-		assert articleReadMore != null : "fx:id=\"articleReadMore\" was not injected: check your FXML file 'NewsReader.fxml'.";
-		assert articleEdit != null : "fx:id=\"articleEdit\" was not injected: check your FXML file 'NewsReader.fxml'.";
-		assert articleDelete != null : "fx:id=\"articleDelete\" was not injected: check your FXML file 'NewsReader.fxml'.";
-		assert loginButton != null : "fx:id=\"loginButton\" was not injected: check your FXML file 'NewsReader.fxml'.";
-		assert logoutButton != null : "fx:id=\"logoutButton\" was not injected: check your FXML file 'NewsReader.fxml'.";
+		assert readMoreButton != null : "fx:id=\"readMoreButton\" was not injected: check your FXML file 'NewsReader.fxml'.";
+		assert edit != null : "fx:id=\"edit\" was not injected: check your FXML file 'NewsReader.fxml'.";
+		assert delete != null : "fx:id=\"delete\" was not injected: check your FXML file 'NewsReader.fxml'.";
+		assert login != null : "fx:id=\"login\" was not injected: check your FXML file 'NewsReader.fxml'.";
+		assert exit != null : "fx:id=\"exit\" was not injected: check your FXML file 'NewsReader.fxml'.";
 	}
 
 	@FXML
@@ -352,7 +371,7 @@ public class NewsReaderController {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-	}*/
+	}
 
 
 }
