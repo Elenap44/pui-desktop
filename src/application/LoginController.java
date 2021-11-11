@@ -1,50 +1,53 @@
 package application;
 
-
 import application.news.User;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import serverConection.ConnectionManager;
 
-
-
 public class LoginController {
-//TODO Add all attribute and methods as needed 
+
 	private LoginModel loginModel = new LoginModel();
-	
 	private Scene mainScene;
 	private NewsReaderController mainController;
-	
+
 	private User loggedUsr = null;
 
 	private String username;
 	private String password;
-	
-	/*@FXML
+
+	@FXML
 	private Button loginButton;
 
 	@FXML
-	private TextField userField;
+	private TextField userName;
 
 	@FXML
-	private PasswordField passwordField;
+	private PasswordField psswrd;
 
 	@FXML
-	private Text loginError;*/
-	
-	public LoginController (){
-	//Uncomment next sentence to use data from server instead dummy data
-	loginModel.setDummyData(false);
+	private Text loginError;
+
+	public LoginController() {
+		loginModel.setDummyData(false);
 	}
-	
+
 	User getLoggedUsr() {
 		return loggedUsr;
-		
+
 	}
-		
-	void setConnectionManager (ConnectionManager connection) {
+
+	void setConnectionManager(ConnectionManager connection) {
 		this.loginModel.setConnectionManager(connection);
 	}
-	
+
 	void setMainScene(Scene scene) {
 		this.mainScene = scene;
 	}
@@ -52,16 +55,16 @@ public class LoginController {
 	void setMainController(NewsReaderController c) {
 		this.mainController = c;
 	}
-	
-	/*@FXML
+
+	@FXML
 	void initialize() {
 		assert loginButton != null : "fx:id=\"loginButton\" was not injected: check your FXML file 'Login.fxml'.";
 	}
 
 	@FXML
-	void loginAction(ActionEvent e) {
-		username = userField.getText().toString();
-		password = passwordField.getText().toString();
+	void login(ActionEvent e) {
+		username = userName.getText().toString();
+		password = psswrd.getText().toString();
 
 		User usr = loginModel.validateUser(username, password);
 		if (usr == null) {
@@ -76,8 +79,8 @@ public class LoginController {
 	}
 
 	@FXML
-	void cancelAction(ActionEvent e) {
+	void cancel(ActionEvent e) {
 		Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
 		primaryStage.setScene(mainScene);
-	}*/
+	}
 }

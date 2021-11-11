@@ -36,7 +36,7 @@ public class ArticleDetailsController {
 	    @FXML
 	    private Label category;
 	    @FXML
-	    private ImageView imageView;
+	    private ImageView image;
 	    @FXML
 	    private TextArea body;
 	    @FXML
@@ -44,10 +44,10 @@ public class ArticleDetailsController {
 
 	    @FXML
 		void initialize() {
-			assert title != null : "fx:id=\"articleTitle\" was not injected";
-			assert subtitle != null : "fx:id=\"articleSubtitle\" was not injected";
-			assert category != null : "fx:id=\"articleCategory\" was not injected";
-			assert imageView != null : "fx:id=\"articleImage\" was not injected";
+			assert title != null : "fx:id=\"title\" was not injected";
+			assert subtitle != null : "fx:id=\"subtitle\" was not injected";
+			assert category != null : "fx:id=\"category\" was not injected";
+			assert image != null : "fx:id=\"image\" was not injected";
 			assert aAbstract != null : "fx:id=\"aAbstract\" was not injected.";
 			assert body != null : "fx:id=\"body\" was not injected.";
 		}
@@ -81,7 +81,7 @@ public class ArticleDetailsController {
 			this.subtitle.setText(article.getSubtitle());
 			this.category.setText(article.getCategory());
 			if (article.getImageData() != null) {
-				this.imageView.setImage(article.getImageData());
+				this.image.setImage(article.getImageData());
 			}
 			String bodyText = article.getBodyText();
 			String noHTMLString = bodyText.replaceAll("\\<.*?\\>", "");
@@ -97,8 +97,9 @@ public class ArticleDetailsController {
 			Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
 			primaryStage.setScene(mainScene);
 		}
+		
 		@FXML
-		void switchContent(ActionEvent e) {
+		void switchContent() {
 			if (body.isVisible()) {
 		    	aAbstract.setVisible(true);
 		    	body.setVisible(false);
@@ -109,4 +110,5 @@ public class ArticleDetailsController {
 			   	aAbstract.setVisible(false);
 		        return;
 			}
+		}
 }

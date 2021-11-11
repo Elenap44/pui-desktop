@@ -55,24 +55,23 @@ public class ArticleEditController {
 	private Scene mainScene;
 	private NewsReaderController mainController;
 	//TODO add attributes and methods as needed
-	@FXML
-	private Text pageTitle;
+
 	@FXML
 	private ImageView aImage;
 	@FXML
-	private TextField aTitle;
+	private TextField title;
 	@FXML
-	private TextField aSubtitle;
+	private TextField subtitle;
 	@FXML
 	private Text aCategory;
 	@FXML
 	private TextArea aAbstract;
 	@FXML
-	private TextArea aBody;
+	private TextArea body;
 	@FXML
-	private HTMLEditor aAbstractHTML;
+	private HTMLEditor abstractHTML;
 	@FXML
-	private HTMLEditor aBodyHTML;
+	private HTMLEditor bodyHTML;
 	@FXML
 	private Button backButton;
 	@FXML
@@ -140,7 +139,7 @@ public class ArticleEditController {
 	 * @return true if the article has been saved
 	 */
 	private boolean send() {
-		String titleText = this.aTitle.getText(); // TODO Get article title
+		String titleText = this.title.getText(); // TODO Get article title
 		Categories category = Categories.valueOf(this.aCategory.getText().toUpperCase()); //TODO Get article category
 		if (titleText == null || category == null || 
 				titleText.equals("") || category == Categories.ALL) {
@@ -155,16 +154,16 @@ public class ArticleEditController {
 		if (this.aAbstract.isVisible())
 			textAbstract = this.aAbstract.getText();
 		else
-			textAbstract = this.aAbstractHTML.getHtmlText();
+			textAbstract = this.abstractHTML.getHtmlText();
 
-		if (this.aBody.isVisible()) {
-			textBody = this.aBody.getText();
+		if (this.body.isVisible()) {
+			textBody = this.body.getText();
 		}
 		else {
-			textBody = this.aBodyHTML.getHtmlText();
+			textBody = this.bodyHTML.getHtmlText();
 		}
 		this.editingArticle.titleProperty().set(titleText);
-		this.editingArticle.subtitleProperty().set(this.aSubtitle.getText());
+		this.editingArticle.subtitleProperty().set(this.subtitle.getText());
 		this.editingArticle.abstractTextProperty().set(textAbstract);
 		this.editingArticle.bodyTextProperty().set(textBody);
 		this.editingArticle.setCategory(category);
@@ -217,15 +216,14 @@ public class ArticleEditController {
 		this.editingArticle = (article != null) ? new ArticleEditModel(article) : new ArticleEditModel(usr);
 		//TODO update UI
 		if(article!=null) {
-			this.pageTitle.setText("Edit Article");
 			this.aImage.setImage(article.getImageData());
-			this.aTitle.setText(article.getTitle());
-			this.aSubtitle.setText(article.getSubtitle());
+			this.title.setText(article.getTitle());
+			this.subtitle.setText(article.getSubtitle());
 			this.aCategory.setText(article.getCategory());
 			this.aAbstract.setText(article.getAbstractText());
-			this.aBody.setText(article.getBodyText());
-			this.aAbstractHTML.setHtmlText(article.getAbstractText());
-			this.aBodyHTML.setHtmlText(article.getBodyText());
+			this.body.setText(article.getBodyText());
+			this.abstractHTML.setHtmlText(article.getAbstractText());
+			this.bodyHTML.setHtmlText(article.getBodyText());
 		}
 		this.setCategories();
 	}
@@ -236,7 +234,7 @@ public class ArticleEditController {
 	 */
 	private void write() {
 		//TODO Consolidate all changes
-		String textTitle= this.aTitle.getText();
+		String textTitle= this.title.getText();
 		if (textTitle == null || textTitle.equals("")) {
 			Alert alert = new Alert(AlertType.INFORMATION, "Enter a title to save the article.");
 			alert.showAndWait();
@@ -248,15 +246,15 @@ public class ArticleEditController {
 			if (this.aAbstract.isVisible())
 				textAbstract = this.aAbstract.getText();
 			else
-				textAbstract= this.aAbstractHTML.getHtmlText();
+				textAbstract= this.abstractHTML.getHtmlText();
 
-			if (this.aBody.isVisible())
-				textBody = this.aBody.getText();
+			if (this.body.isVisible())
+				textBody = this.body.getText();
 			else
-				textBody = this.aBodyHTML.getHtmlText();
+				textBody = this.bodyHTML.getHtmlText();
 
 			this.editingArticle.titleProperty().set(textTitle);
-			this.editingArticle.subtitleProperty().set(this.aSubtitle.getText());
+			this.editingArticle.subtitleProperty().set(this.subtitle.getText());
 			this.editingArticle.abstractTextProperty().set(textAbstract);
 			this.editingArticle.bodyTextProperty().set(textBody);
 			this.editingArticle.setCategory(category);
@@ -278,26 +276,25 @@ public class ArticleEditController {
 	}
 	@FXML
 	void initialize() {
-		assert aTitle != null : "fx:id=\"articleTitle\" was not injected";
-		assert aSubtitle != null : "fx:id=\"articleSubtitle\" was not injected";
-		assert aCategory != null : "fx:id=\"articleCategory\" was not injected";
-		assert pageTitle != null : "fx:id=\"pageTitle\" was not injected";
-		assert aImage != null : "fx:id=\"articleImage\" was not injected";
-		assert aAbstract != null : "fx:id=\"articleAbstractText\" was not injected";
-		assert aBody != null : "fx:id=\"articleBodyText\" was not injected";
-		assert aAbstractHTML != null : "fx:id=\"articleAbstractHTML\" was not injected";
-		assert aBodyHTML != null : "fx:id=\"articleBodyHTML\" was not injected";
+		assert title != null : "fx:id=\"title\" was not injected";
+		assert subtitle != null : "fx:id=\"subtitle\" was not injected";
+		assert aCategory != null : "fx:id=\"aCategory\" was not injected";
+		assert aImage != null : "fx:id=\"aImage\" was not injected";
+		assert aAbstract != null : "fx:id=\"aAbstract\" was not injected";
+		assert body != null : "fx:id=\"body\" was not injected";
+		assert abstractHTML != null : "fx:id=\"abstractHTML\" was not injected";
+		assert bodyHTML != null : "fx:id=\"bodyHTML\" was not injected";
 		assert categoryMenu != null : "fx:id=\"categoryMenu\" was not injected";
 	}
 	@FXML
-	void backAction(ActionEvent e) {
+	void back(ActionEvent e) {
 		this.editingArticle.discardChanges();
 		Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
 		primaryStage.setScene(mainScene);
 	}
 
 	@FXML
-	void sendBackAction(ActionEvent e) {
+	void sendBack(ActionEvent e) {
 		if (this.send()) {
 			Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
 			this.mainController.updateScene();
@@ -307,69 +304,66 @@ public class ArticleEditController {
 	}
 
 	@FXML
-	void saveFileAction(ActionEvent e) {
+	void saveFile(ActionEvent e) {
 		System.out.println("saving...");
 		write();
 		System.out.println("article draft saved!");
 	}
 
 	@FXML
-	void switchTypeAction(ActionEvent e) {
+	void switchType(ActionEvent e) {
 		if (this.aAbstract.isVisible()) {
 			this.aAbstract.setVisible(false);
-			this.aAbstractHTML.setVisible(true);
+			this.abstractHTML.setVisible(true);
 			this.saveAbstract(false);
-		} else if (this.aAbstractHTML.isVisible()) {
+		} else if (this.abstractHTML.isVisible()) {
 			this.aAbstract.setVisible(true);
-			this.aAbstractHTML.setVisible(false);
+			this.abstractHTML.setVisible(false);
 			this.saveAbstract(true);
-		} else if (this.aBody.isVisible()) {
-			this.aBody.setVisible(false);
-			this.aBodyHTML.setVisible(true);
+		} else if (this.body.isVisible()) {
+			this.body.setVisible(false);
+			this.bodyHTML.setVisible(true);
 			this.saveBody(false);
 		} else {
-			this.aBody.setVisible(true);
-			this.aBodyHTML.setVisible(false);
+			this.body.setVisible(true);
+			this.bodyHTML.setVisible(false);
 			this.saveBody(true);
 		}
 	}
 
 	@FXML
-	void switchContentAction(ActionEvent e) {
+	void switchContent(ActionEvent e) {
 		if (this.aAbstract.isVisible()) {
-			this.aBody.setVisible(true);
+			this.body.setVisible(true);
 			this.aAbstract.setVisible(false);
 			this.saveAbstract(false);
-		} else if (this.aBody.isVisible()) {
+		} else if (this.body.isVisible()) {
 			this.aAbstract.setVisible(true);
-			this.aBody.setVisible(false);
+			this.body.setVisible(false);
 			this.saveBody(false);
-		} else if (this.aAbstractHTML.isVisible()) {
-			this.aBodyHTML.setVisible(true);
-			this.aAbstractHTML.setVisible(false);
+		} else if (this.abstractHTML.isVisible()) {
+			this.bodyHTML.setVisible(true);
+			this.abstractHTML.setVisible(false);
 			this.saveAbstract(true);
 		} else {
-			this.aAbstractHTML.setVisible(true);
-			this.aBodyHTML.setVisible(false);
+			this.abstractHTML.setVisible(true);
+			this.bodyHTML.setVisible(false);
 			this.saveBody(true);
 		}
 	}
 
 	private void saveAbstract(boolean checkHTML) {
 		if (checkHTML)
-			this.aAbstract.setText(this.aAbstractHTML.getHtmlText());
+			this.aAbstract.setText(this.abstractHTML.getHtmlText());
 		else
-			this.aAbstractHTML.setHtmlText(this.aAbstract.getText());
+			this.abstractHTML.setHtmlText(this.aAbstract.getText());
 	}
 
 	private void saveBody(boolean checkHTML) {
 		if (checkHTML)
-			this.aBody.setText(this.aBodyHTML.getHtmlText());
+			this.body.setText(this.bodyHTML.getHtmlText());
 		else
-			this.aBodyHTML.setHtmlText(this.aBody.getText());
+			this.bodyHTML.setHtmlText(this.body.getText());
 	}
-	
-	
-	
 	
 }

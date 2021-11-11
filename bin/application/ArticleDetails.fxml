@@ -8,116 +8,57 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="486.0" prefWidth="928.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ArticleDetailsController">
-   <children>
-      <Label layoutX="26.0" layoutY="25.0" text="News online for " />
-      <Label fx:id="userName" layoutX="113.0" layoutY="25.0" />
-      <HBox layoutX="438.0" layoutY="19.0" prefHeight="114.0" prefWidth="490.0">
+<AnchorPane prefHeight="420.0" prefWidth="570.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ArticleDetailsController">
+  <children>
+      <AnchorPane layoutX="28.0" layoutY="369.0" prefHeight="26.0" prefWidth="516.0">
          <children>
-            <VBox prefHeight="114.0" prefWidth="61.0">
+            <Button mnemonicParsing="false" onAction="#back" stylesheets="@application.css" text="Back" />
+            <Button contentDisplay="RIGHT" layoutX="412.0" mnemonicParsing="false" onAction="#switchContent" prefHeight="25.0" prefWidth="103.0" stylesheets="@application.css" text="Abstract/Body" />
+         </children>
+      </AnchorPane>
+      <Label layoutX="13.0" layoutY="8.0" prefHeight="26.0" prefWidth="91.0" text="News online for: " />
+      <Label fx:id="userName" layoutX="102.0" layoutY="12.0" prefHeight="26.0" prefWidth="116.0" />
+      <HBox layoutX="233.0" prefHeight="166.0" prefWidth="339.0">
+         <children>
+            <VBox prefHeight="166.0" prefWidth="71.0" spacing="30.0">
                <children>
-                  <Label text="Title:" />
-                  <Label prefHeight="17.0" prefWidth="57.0" text="Subtitle:" />
-                  <Label text="Category:" />
+                  <Label text="Title:">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Subtitle:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <Label text="Category:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
                </children>
+               <padding>
+                  <Insets left="10.0" top="34.0" />
+               </padding>
             </VBox>
-            <VBox prefHeight="114.0" prefWidth="408.0">
+            <VBox prefHeight="178.0" prefWidth="258.0" spacing="17.0">
+               <padding>
+                  <Insets left="10.0" top="30.0" />
+               </padding>
                <children>
-                  <Label fx:id="title" prefHeight="17.0" prefWidth="383.0" />
-                  <Label fx:id="subtitle" prefHeight="17.0" prefWidth="399.0" />
-                  <Label fx:id="category" prefHeight="17.0" prefWidth="403.0" />
+                  <Label fx:id="title" prefHeight="26.0" prefWidth="244.0" stylesheets="@application.css" />
+                  <Label fx:id="subtitle" prefHeight="26.0" prefWidth="244.0" stylesheets="@application.css" />
+                  <Label fx:id="category" prefHeight="26.0" prefWidth="244.0" stylesheets="@application.css" />
                </children>
             </VBox>
          </children>
       </HBox>
-      <AnchorPane layoutX="-11.0" layoutY="385.0" prefHeight="29.0" prefWidth="924.0" AnchorPane.bottomAnchor="5.666666666666686" AnchorPane.leftAnchor="-11.0">
-         <children>
-            <Button layoutX="33.0" mnemonicParsing="false" onAction="#back" prefHeight="28.0" prefWidth="75.0" text="Back" AnchorPane.leftAnchor="33.0" AnchorPane.topAnchor="0.0">
-               <padding>
-                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
-               </padding>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#switchContent" prefHeight="28.0" prefWidth="138.0" text="Abstract/Body" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
-               <padding>
-                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
-               </padding>
-            </Button>
-         </children>
-      </AnchorPane>
-      <TextArea fx:id="body" layoutX="21.0" layoutY="196.0" prefHeight="246.0" prefWidth="898.0" />
-      <TextArea fx:id="aAbstract" layoutX="19.0" layoutY="194.0" prefHeight="249.0" prefWidth="897.0" />
-      <ImageView fx:id="imageView" fitHeight="139.0" fitWidth="200.0" layoutX="55.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true" />
-   </children>
-</AnchorPane>
-//////////////REME:
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ArticleDetailsController">
-   <padding>
-      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-   </padding>
-   <children>
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@../images/The-Guardian-Logo.png" />
-         </image>
-      </ImageView>
-      <ScrollPane hbarPolicy="NEVER" prefHeight="520.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0">
-               <children>
-                  <VBox spacing="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Text fx:id="articleTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" wrappingWidth="880.0">
-                           <font>
-                              <Font name="Georgia Bold" size="20.0" />
-                           </font>
-                        </Text>
-                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0">
-                           <children>
-                              <ImageView fx:id="articleImage" fitHeight="259.0" fitWidth="409.0" pickOnBounds="true" preserveRatio="true" />
-                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
-                                 <children>
-                                    <Text fx:id="articleSubtitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Subtitle" wrappingWidth="420.0">
-                                       <font>
-                                          <Font name="Times New Roman" size="18.0" />
-                                       </font>
-                                    </Text>
-                                    <Text fx:id="articleCategory" fill="#005689" strokeType="OUTSIDE" strokeWidth="0.0" text="Category">
-                                       <font>
-                                          <Font name="Times New Roman Italic" size="13.0" />
-                                       </font>
-                                    </Text>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <Text fx:id="articleContent" strokeType="OUTSIDE" strokeWidth="0.0" text="Body/Abstract" textAlignment="JUSTIFY" wrappingWidth="880.0">
-                           <font>
-                              <Font name="Times New Roman" size="14.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </VBox>
-               </children>
-            </AnchorPane>
-        </content>
-         <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-         </padding>
-      </ScrollPane>
-      <AnchorPane prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
-         <children>
-            <Button mnemonicParsing="false" onAction="#backAction" text="Back" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <padding>
-                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
-               </padding>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#switchContentAction" text="Abstract/Body" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <padding>
-                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
-               </padding>
-            </Button>
-         </children>
-      </AnchorPane>
-   </children>
+      <TextArea fx:id="body" layoutX="31.0" layoutY="181.0" prefHeight="179.0" prefWidth="509.0" visible="false" wrapText="true" />
+      <TextArea fx:id="aAbstract" layoutX="31.0" layoutY="181.0" prefHeight="179.0" prefWidth="509.0" visible="true" wrapText="true" />
+      <ImageView fx:id="image" fitHeight="100.0" fitWidth="171.0" layoutX="31.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="31.0" />
+  </children>
 </AnchorPane>
