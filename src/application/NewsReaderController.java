@@ -214,7 +214,7 @@ public class NewsReaderController {
 		NewScene(AppScenes.EDITOR, this.Article, e);
 	}
 	
-	public void ClickNew(Event e) {
+	public void ClickNew(ActionEvent e) {
 		NewScene(AppScenes.EDITOR, null, e);
 	}
 	

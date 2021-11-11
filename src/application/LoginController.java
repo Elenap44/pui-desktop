@@ -72,8 +72,8 @@ public class LoginController {
 			loginError.setText("These credentials do not match");
 		} else {
 			loggedUsr = usr;
-			Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-			primaryStage.setScene(mainScene);
+			Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+	    	stage.close();
 		}
 	}
 

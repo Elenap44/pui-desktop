@@ -174,6 +174,7 @@ public class ArticleEditController {
 			e.printStackTrace();
 		}
 		
+		
 		return true;
 	}
 	
@@ -296,9 +297,9 @@ public class ArticleEditController {
 	@FXML
 	void sendBack(ActionEvent e) {
 		if (this.send()) {
-			Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-			//this.mainController.updateScene();
-			primaryStage.setScene(mainScene);
+
+	        Stage stage1 = (Stage) ((Node) e.getSource()).getScene().getWindow();
+	    	stage1.close();
 		}
 		return;
 	}
