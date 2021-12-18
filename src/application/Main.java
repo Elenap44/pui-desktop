@@ -26,6 +26,13 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
 
+/**
+ * @author ÁngelLucas
+ * Elena Maria Perez Perez
+ * Remedios Pastor Molines
+ * Abel Horvath
+ */
+
 public class Main extends Application {
     private double xOffset = 0;
     private double yOffset = 0;

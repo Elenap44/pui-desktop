@@ -22,9 +22,12 @@ import serverConection.exceptions.ServerCommunicationError;
 /**
  * This class provides the services needed for NewsReader controller
  * 
- * @author ÁngelLucas
- *
+ * @author AngelLucas
+ * Elena Maria Perez Perez
+ * Remedios Pastor Molines
+ * Abel Horvath
  */
+
 class NewsReaderModel {
 	/**
 	 * Observable list with all articles, needed for a ListView control

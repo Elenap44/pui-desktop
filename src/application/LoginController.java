@@ -1,5 +1,12 @@
 package application;
 
+/**
+ * @author ÁngelLucas
+ * Elena Maria Perez Perez
+ * Remedios Pastor Molines
+ * Abel Horvath
+ */
+
 import application.news.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

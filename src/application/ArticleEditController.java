@@ -46,7 +46,9 @@ import serverConection.exceptions.ServerCommunicationError;
 
 /**
  * @author AngelLucas
- *
+ * Elena Maria Perez Perez
+ * Remedios Pastor Molines
+ * Abel Horvath
  */
 public class ArticleEditController {
     private ConnectionManager connection;
@@ -124,7 +126,7 @@ public class ArticleEditController {
 				if (image != null) {
 					editingArticle.setImage(image);
 					//TODO Update image on UI
-					aImage.setImage(image);
+					this.aImage.setImage(image);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -150,6 +152,7 @@ public class ArticleEditController {
 //TODO prepare and send using connection.saveArticle( ...)
 		String textAbstract;
 		String textBody;
+		Article article = new Article();
 		
 		if (this.aAbstract.isVisible())
 			textAbstract = this.aAbstract.getText();
@@ -167,6 +170,10 @@ public class ArticleEditController {
 		this.editingArticle.abstractTextProperty().set(textAbstract);
 		this.editingArticle.bodyTextProperty().set(textBody);
 		this.editingArticle.setCategory(category);
+		Image imagedata =  aImage.getImage();
+        if (imagedata != null) {
+        	article.setImageData(imagedata);
+		}
 		try {
 			this.editingArticle.commit();
 			connection.saveArticle(getArticle());
@@ -174,8 +181,8 @@ public class ArticleEditController {
 			e.printStackTrace();
 		}
 		
-		
-		return true;
+        return true;
+
 	}
 	
 	/**

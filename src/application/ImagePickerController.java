@@ -1,7 +1,13 @@
 package application;
 
+/**
+ * @author ÁngelLucas
+ * Elena Maria Perez Perez
+ * Remedios Pastor Molines
+ * Abel Horvath
+ */
 
-//import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXTextField;
 
 import java.io.File;
 

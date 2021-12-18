@@ -13,7 +13,9 @@ import serverConection.exceptions.AuthenticationError;
  * This class provide the services needed to verify and
  * grant users access to the news manager
  * @author agonzalez
- *
+ * Elena Maria Perez Perez
+ * Remedios Pastor Molines
+ * Abel Horvath
  */
 class LoginModel {
 	/**

@@ -15,7 +15,9 @@ import javafx.scene.image.Image;
  *This class is used to represent an article when it is editing
  * This class is needed to develop NewsEditController
  * @author ÁngelLucas
- *
+ * Elena Maria Perez Perez
+ * Remedios Pastor Molines
+ * Abel Horvath
  */
 class ArticleEditModel {
 	//Reference to original article. Useful for undo changes

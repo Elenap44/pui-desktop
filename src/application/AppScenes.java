@@ -5,8 +5,10 @@ package application;
 
 /**
  * Contain all app scenes
- * @author ÁngelLucas
- *
+ * @author AngelLucas
+ * Elena Maria Perez Perez
+ * Remedios Pastor Molines
+ * Abel Horvath
  */
 public enum AppScenes {
  LOGIN("Login.fxml"), READER("NewsReader.fxml"), 

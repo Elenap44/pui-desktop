@@ -20,7 +20,9 @@ import javafx.stage.Stage;
 
 /**
  * @author AngelLucas
- *
+ * Elena Maria Perez Perez
+ * Remedios Pastor Molines
+ * Abel Horvath
  */
 public class ArticleDetailsController {
 	//TODO add attributes and methods as needed

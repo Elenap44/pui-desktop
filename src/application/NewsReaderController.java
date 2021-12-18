@@ -57,12 +57,16 @@ import serverConection.exceptions.ServerCommunicationError;
 
 /**
  * @author AngelLucas
- *
+ * Elena Maria Perez Perez
+ * Remedios Pastor Molines
+ * Abel Horvath
  */
 public class NewsReaderController {
 
 	@FXML
 	private Label newsUser;
+	
+	private Scene scene;
 	
 	@FXML
     private ListView<Article> headlineList;
@@ -81,7 +85,7 @@ public class NewsReaderController {
 	private Button login;
 
 	@FXML
-	private Button newArticle;
+	private Button newA;
 	
 	@FXML
 	private Button loadArticle;
@@ -139,18 +143,7 @@ public class NewsReaderController {
 
 
 	 @FXML
-	    void changeCategory(ActionEvent event) {
-		//TODO:
-	    	//Get the text associated to key pressed
-	    	
-	    	//If key code corresponds to a character or digit then add to text filter
-	    	
-	    	
-	    	//Update the filter. If filtetText is empty, 
-	    	//all contacts must be shown in other case,
-	    	//only contacts that start with filterText must be shown
-	      //END TODO
-	    	
+	    void updateCategory(ActionEvent event) {
 	    	String filterText = this.categoryFilter.getValue().toString();
 
 	    	if(filterText == "All") {
@@ -164,7 +157,6 @@ public class NewsReaderController {
 	
 
 	private void getData() {
-		//TODO retrieve data and update UI
 		 newsReaderModel.retrieveData();
 		 categoryFilter.getItems().addAll(newsReaderModel.getCategories());
 		 categoryFilter.getSelectionModel().selectFirst();
@@ -192,7 +184,6 @@ public class NewsReaderController {
 	}
 
 	void setConnectionManager (ConnectionManager connection){
-		//this.newsReaderModel.setDummyData(false); //System is connected so dummy data are not needed
 		this.connectionManager = connection;
 		this.newsReaderModel.setConnectionManager(connection);
 		this.getData();
@@ -207,26 +198,43 @@ public class NewsReaderController {
 		//Reload articles
 		this.getData();
 		//TODO Update UI
-		newsUser.setText(this.usr.getLogin());
+		this.newsUser.setText(this.usr.getLogin());
 	}
 	
-	public void ClickEdit(Event e) {
+	public void CNew(ActionEvent e) {
+		try {
+			Stage primaryStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(AppScenes.EDITOR.getFxmlFile()));
+			Scene articleScene = new Scene(loader.load());
+			ArticleEditController controller = loader.<ArticleEditController>getController();
+			controller.setArticle(null);
+			controller.setMainScene(scene);
+			controller.setMainController(NewsReaderController.this);
+
+			if (this.usr != null) {
+				controller.setUsr(this.usr);
+				controller.setConnectionMannager(newsReaderModel.getConnectionManager());
+			}
+
+			primaryStage.setScene(articleScene);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	public void CEdit(Event e) {
 		NewScene(AppScenes.EDITOR, this.Article, e);
 	}
 	
-	public void ClickNew(ActionEvent e) {
-		NewScene(AppScenes.EDITOR, null, e);
-	}
-	
-	public void ClickObserve(Event e) {
+	public void CObserve(Event e) {
 		NewScene(AppScenes.NEWS_DETAILS, this.Article, e);
 	}
 	
-	public void ClickLogin(Event e) {
+	public void CLogin(Event e) {
 		NewScene(AppScenes.LOGIN, null,e );
 	}
 	
-	public void ClickDelete() {
+	public void CDelete() {
 		newsReaderModel.deleteArticle(this.Article);
 		getData();
 		
@@ -236,7 +244,7 @@ public class NewsReaderController {
 	@FXML
 	public void LoadArticleFromFile(Event e) {
 		FileChooser chooser =  new FileChooser();
-		chooser.setTitle("���ļ�");
+		chooser.setTitle("");
 		
 		chooser.getExtensionFilters().addAll(
 
@@ -257,7 +265,7 @@ public class NewsReaderController {
 	
 
 	@FXML
-	void ClickExit(ActionEvent e) {
+	void CExit(ActionEvent e) {
 		System.exit(0);
 	}
 	
@@ -268,28 +276,14 @@ public class NewsReaderController {
 		try {
 			
 			FXMLLoader loader = new FXMLLoader (getClass().getResource(
-					scene.getFxmlFile()));
+			scene.getFxmlFile()));
 			Pane root = loader.load();
 			Stage stage = new Stage();
 			stage.initModality(Modality.WINDOW_MODAL);
             stage.setTitle(scene.toString());
             stage.setScene(new Scene(root));
             
-            if (scene == AppScenes.EDITOR) {
-            	ArticleEditController controller = loader.<ArticleEditController>getController();
-            	
-            	if (article != null) {
-            		controller.setArticle(article);
-            	
-				}
-            	controller.setConnectionMannager(this.connectionManager);
-            	controller.setUsr(usr);
-            	stage.showAndWait();
-            	
-            	getData();
-            	return;
-            	
-			} else if(scene == AppScenes.LOGIN) {
+            if(scene == AppScenes.LOGIN) {
             	
             	LoginController controller = loader.<LoginController>getController();
     			controller.setConnectionManager(this.connectionManager);
@@ -303,7 +297,22 @@ public class NewsReaderController {
             	}
             	return;
             	
-			 } else if(scene == AppScenes.NEWS_DETAILS) {
+			 } else if (scene == AppScenes.EDITOR) {
+	            	ArticleEditController controller = loader.<ArticleEditController>getController();
+	            	
+	            	if (article != null) {
+	            		controller.setArticle(article);
+	            	
+					}
+	            	controller.setConnectionMannager(this.connectionManager);
+	            	controller.setUsr(usr);
+	            	stage.showAndWait();
+	            	
+	            	getData();
+	            	return;
+	            	
+				}
+            else if(scene == AppScenes.NEWS_DETAILS) {
 				 ArticleDetailsController controller = loader.<ArticleDetailsController>getController();
 	            	
 	             if (article != null) {
